@@ -10,13 +10,15 @@ on:
 jobs:
   create_tag:
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.create_tag.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
       - name: Create tag with current date and time
         id: create_tag
         run: |
           TAG=$(date +'%Y.%m.%d.%H%M')
-          echo "TAG=$TAG" >> $GITHUB_ENV
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
           git tag $TAG
           git push origin $TAG
 
@@ -25,6 +27,9 @@ jobs:
     needs: create_tag
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          show-progress: true
       - name: Checkout Keychron/qmk_firmware
         run: git clone --recurse-submodules --branch wireless_playground https://github.com/Keychron/qmk_firmware.git
       - name: Copy keyboard files
@@ -36,11 +41,9 @@ jobs:
         with:
           name: Keychron K4 Pro Firmware
           path: qmk_firmware/.build/*
-      - name: Ensure repository is up to date
-        run: git fetch --tags
       - name: Upload firmware (tagged release)
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          tag_name: ${{ env.TAG }}
+          tag_name: ${{ needs.create_tag.outputs.tag }}
           files: qmk_firmware/.build/*
