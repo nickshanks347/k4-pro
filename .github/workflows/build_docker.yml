@@ -9,7 +9,7 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v4
             - name: Checkout Keychron/qmk_firmware
               run: git clone --recurse-submodules --branch wireless_playground https://github.com/Keychron/qmk_firmware.git
             - name: Copy keyboard files
@@ -17,7 +17,7 @@ jobs:
             - name: Build firmware with Docker
               run: docker run --rm --user $(id -u):$(id -g) -v "./qmk_firmware/:/qmk_firmware:z" ghcr.io/qmk/qmk_cli:latest qmk compile -kb keychron/k4_pro/iso/rgb -km mine
             - name: Upload firmware
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v4
               with:
                 name: Keychron K4 Pro Firmware
-                path: qmk_firmware/.build/*.bin
+                path: qmk_firmware/.build/*
