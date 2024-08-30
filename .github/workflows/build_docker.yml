@@ -16,6 +16,11 @@ jobs:
               run: cp -rv keyboards/keychron/k4_pro/* qmk_firmware/keyboards/keychron/k4_pro/
             - name: Build firmware with Docker
               run: docker run --rm --user $(id -u):$(id -g) -v "./qmk_firmware/:/qmk_firmware:z" ghcr.io/qmk/qmk_cli:latest qmk compile -kb keychron/k4_pro/iso/rgb -km mine
+            - name: Create tag with current date and time
+              run: |
+                TAG=$(date +'%Y.%m.%d.%H%M')
+                git tag $TAG
+                git push origin $TAG
             - name: Upload firmware (pipeline artifact)
               uses: actions/upload-artifact@v4
               with:
