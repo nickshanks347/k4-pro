@@ -1,0 +1,23 @@
+name: Build Keychron K4 Pro Firmware (Docker)
+on:
+    push:
+        paths: 
+            - 'keyboards/keychron/k4_pro/**'
+            - '.github/workflows/build_docker.yml' 
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Checkout Keychron/qmk_firmware
+              run: git clone --recurse-submodules --branch wireless_playground https://github.com/Keychron/qmk_firmware.git
+            - name: Copy keyboard files
+              run: cp -rv keyboards/keychron/k4_pro/* qmk_firmware/keyboards/keychron/k4_pro/
+            - name: Build firmware with Docker
+              run: docker run --rm --user $(id -u):$(id -g) -v "./qmk_firmware/:/qmk_firmware:z" ghcr.io/qmk/qmk_cli:latest qmk compile -kb keychron/k4_pro/iso/rgb -km mine
+            - name: Upload firmware
+              uses: actions/upload-artifact@v2
+              with:
+                name: Keychron K4 Pro Firmware
+                path: qmk_firmware/.build/*.bin
