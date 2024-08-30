@@ -1,0 +1,30 @@
+name: Build Keychron K4 Pro Firmware
+on:
+    push:
+        paths: 
+            - 'keyboards/keychron/k4_pro/**'
+            - '.github/workflows/build.yml' 
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-python@v5
+              with:
+                python-version: '3.10'
+            - name: Checkout Keychron/qmk_firmware
+              run: git clone --branch wireless_playground https://github.com/Keychron/qmk_firmware.git
+            - name: Install QMK
+              run: python3 -m pip install qmk
+            - name: Setup QMK
+              run: cd qmk_firmware && qmk setup --yes
+            - name: Copy keyboard files
+              run: cp -rv keyboards/keychron/k4_pro/* qmk_firmware/keyboards/keychron/k4_pro/
+            - name: Build firmware
+              run: cd qmk_firmware && qmk compile -kb keychron/k4_pro/iso/rgb -km mine
+            - name: Upload firmware
+              uses: actions/upload-artifact@v2
+              with:
+                name: Keychron K4 Pro Firmware
+                path: qmk_firmware/.build/*.bin
