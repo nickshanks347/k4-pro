@@ -60,3 +60,12 @@ jobs:
         with:
           tag_name: ${{ needs.create_tag.outputs.tag }}
           files: qmk_firmware/.build/*
+      - name: Upload firmware (build folder)
+        run: |
+          mkdir -p build
+          cp -rv qmk_firmware/.build/*.bin build/firmware_${{ needs.create_tag.outputs.tag }}.bin
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add build/firmware_${{ needs.create_tag.outputs.tag }}.bin
+          git commit -m "Add firmware_${{ needs.create_tag.outputs.tag }}.bin"
+          git push origin HEAD:main
