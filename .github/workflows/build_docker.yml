@@ -35,9 +35,7 @@ jobs:
         id: cache
         with:
           path: qmk_firmware
-          key: ${{ runner.os }}-qmk_firmware-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-qmk_firmware-
+          key: ${{ runner.os }}-qmk_firmware
       - name: Checkout Keychron/qmk_firmware
         if: steps.cache.outputs.cache-hit != 'true'
         run: git clone --recurse-submodules --branch wireless_playground https://github.com/Keychron/qmk_firmware.git
