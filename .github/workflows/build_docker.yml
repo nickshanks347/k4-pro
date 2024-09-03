@@ -64,6 +64,8 @@ jobs:
         run: |
           mkdir -p build
           cp -rv qmk_firmware/.build/*.bin build/firmware_${{ needs.create_tag.outputs.tag }}.bin
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
           git add build/firmware_${{ needs.create_tag.outputs.tag }}.bin
           git commit -m "Add firmware_${{ needs.create_tag.outputs.tag }}.bin"
           git push origin HEAD:main
