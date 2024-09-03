@@ -5,6 +5,7 @@
 #define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT /* nice */
 #define ENABLE_RGB_MATRIX_CYCLE_SPIRAL /* nice, on low speed */
 #define ENABLE_RGB_MATRIX_CUSTOM_esc_red_effect
+#define ENABLE_RGB_MATRIX_CUSTOM_white_effect
 // #define ENABLE_RGB_MATRIX_BREATHING
 // #define ENABLE_RGB_MATRIX_BAND_SAT
 // #define ENABLE_RGB_MATRIX_BAND_VAL
