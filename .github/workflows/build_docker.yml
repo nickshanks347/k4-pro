@@ -39,6 +39,9 @@ jobs:
       - name: Checkout Keychron/qmk_firmware
         if: steps.cache.outputs.cache-hit != 'true'
         run: git clone --recurse-submodules --branch wireless_playground https://github.com/Keychron/qmk_firmware.git
+      - name: Clean old qmk firmware build
+        if: steps.cache.outputs.cache-hit == 'true'
+        run: rm -rf qmk_firmware/.build/*
       - name: Copy keyboard files
         run: cp -rv keyboards/keychron/k4_pro/* qmk_firmware/keyboards/keychron/k4_pro/
       - name: Build firmware with Docker
@@ -47,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Keychron K4 Pro Firmware
-          path: qmk_firmware/.build/*
+          path: qmk_firmware/.build/*.bin
       - name: Upload firmware (tagged release)
         uses: softprops/action-gh-release@v2
         with:
