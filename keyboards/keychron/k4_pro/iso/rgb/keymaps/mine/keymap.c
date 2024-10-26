@@ -89,7 +89,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     }
     return false;
 
-    if (led_state.num_lock) {
+    if (host_keyboard_led_state().num_lock) {
         rgb_matrix_set_color(NUM_LOCK_INDEX, RGB_RED);
         // 51-53, 67-69, 83-85, 96 is numpad
         rgb_matrix_set_color(51, RGB_RED);
