@@ -87,7 +87,6 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         rgb_matrix_set_color(78, RGB_RED);
         rgb_matrix_set_color(79, RGB_RED);
     }
-    return false;
 
     if (host_keyboard_led_state().num_lock) {
         rgb_matrix_set_color(NUM_LOCK_INDEX, RGB_RED);
@@ -103,4 +102,6 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         rgb_matrix_set_color(85, RGB_RED);
         rgb_matrix_set_color(96, RGB_RED);
     }
+
+    return false;
 }
