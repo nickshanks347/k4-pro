@@ -90,17 +90,17 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     if (host_keyboard_led_state().num_lock) {
         rgb_matrix_set_color(NUM_LOCK_INDEX, RGB_RED);
-        // 51-53, 67-69, 83-85, 96 is numpad
+        // numlock layout
+        rgb_matrix_set_color(50, RGB_RED);
         rgb_matrix_set_color(51, RGB_RED);
         rgb_matrix_set_color(52, RGB_RED);
-        rgb_matrix_set_color(53, RGB_RED);
-        rgb_matrix_set_color(67, RGB_RED);
         rgb_matrix_set_color(68, RGB_RED);
         rgb_matrix_set_color(69, RGB_RED);
-        rgb_matrix_set_color(83, RGB_RED);
-        rgb_matrix_set_color(84, RGB_RED);
+        rgb_matrix_set_color(70, RGB_RED);
         rgb_matrix_set_color(85, RGB_RED);
-        rgb_matrix_set_color(96, RGB_RED);
+        rgb_matrix_set_color(86, RGB_RED);
+        rgb_matrix_set_color(87, RGB_RED);
+        rgb_matrix_set_color(99, RGB_RED);
     }
 
     return false;
