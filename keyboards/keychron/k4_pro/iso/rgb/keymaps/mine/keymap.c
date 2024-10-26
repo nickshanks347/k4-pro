@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(CAPS_LOCK_INDEX, RGB_RED);
-        // 38-47, 55-63, 72-78 is QWERTY layout
+        // 38-47, 55-63, 73-79 is QWERTY layout
         rgb_matrix_set_color(38, RGB_RED);
         rgb_matrix_set_color(39, RGB_RED);
         rgb_matrix_set_color(40, RGB_RED);
@@ -79,13 +79,28 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         rgb_matrix_set_color(61, RGB_RED);
         rgb_matrix_set_color(62, RGB_RED);
         rgb_matrix_set_color(63, RGB_RED);
-        rgb_matrix_set_color(72, RGB_RED);
         rgb_matrix_set_color(73, RGB_RED);
         rgb_matrix_set_color(74, RGB_RED);
         rgb_matrix_set_color(75, RGB_RED);
         rgb_matrix_set_color(76, RGB_RED);
         rgb_matrix_set_color(77, RGB_RED);
         rgb_matrix_set_color(78, RGB_RED);
+        rgb_matrix_set_color(79, RGB_RED);
     }
     return false;
+
+    if (host_keyboard_led_state().num_lock) {
+        rgb_matrix_set_color(NUM_LOCK_INDEX, RGB_RED);
+        // 51-53, 67-69, 83-85, 96 is numpad
+        rgb_matrix_set_color(51, RGB_RED);
+        rgb_matrix_set_color(52, RGB_RED);
+        rgb_matrix_set_color(53, RGB_RED);
+        rgb_matrix_set_color(67, RGB_RED);
+        rgb_matrix_set_color(68, RGB_RED);
+        rgb_matrix_set_color(69, RGB_RED);
+        rgb_matrix_set_color(83, RGB_RED);
+        rgb_matrix_set_color(84, RGB_RED);
+        rgb_matrix_set_color(85, RGB_RED);
+        rgb_matrix_set_color(96, RGB_RED);
+    }
 }
